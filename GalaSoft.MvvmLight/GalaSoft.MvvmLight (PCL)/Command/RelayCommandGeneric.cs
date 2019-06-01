@@ -45,7 +45,7 @@ namespace GalaSoft.MvvmLight.Command
     /// This will enable (or restore) the CommandManager class which handles
     /// automatic enabling/disabling of controls based on the CanExecute delegate.</remarks>
     ////[ClassInfo(typeof(RelayCommand))]
-    public class RelayCommand<T> : ICommand
+    public class RelayCommand<T> : ICommandEx
     {
         private readonly WeakAction<T> _execute;
 
@@ -83,7 +83,7 @@ namespace GalaSoft.MvvmLight.Command
         {
             if (execute == null)
             {
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
             }
 
             _execute = new WeakAction<T>(execute, keepTargetAlive);

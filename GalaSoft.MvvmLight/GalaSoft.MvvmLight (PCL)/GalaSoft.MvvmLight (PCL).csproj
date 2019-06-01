@@ -47,6 +47,11 @@
     <None Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\AsyncCommand.cs" />
+    <Compile Include="Command\AsyncCommandGeneric.cs" />
+    <Compile Include="Command\IAsyncCommand.cs" />
+    <Compile Include="Command\IAsyncCommandGeneric.cs" />
+    <Compile Include="Command\ICommandEx.cs" />
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Command\RelayCommandGeneric.cs" />
     <Compile Include="Helpers\DesignerPlatformLibrary.cs" />

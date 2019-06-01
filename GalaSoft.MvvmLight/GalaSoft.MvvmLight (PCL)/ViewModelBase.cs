@@ -198,7 +198,7 @@ namespace GalaSoft.MvvmLight
         {
             if (string.IsNullOrEmpty(propertyName))
             {
-                throw new ArgumentException("This method cannot be called with an empty string", "propertyName");
+                throw new ArgumentException("This method cannot be called with an empty string", nameof(propertyName));
             }
 
             // ReSharper disable ExplicitCallerInfoArgument

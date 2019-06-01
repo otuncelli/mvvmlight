@@ -98,7 +98,7 @@ namespace GalaSoft.MvvmLight.Messaging
         {
             if (callback == null)
             {
-                throw new ArgumentNullException("callback", "Callback may not be null");
+                throw new ArgumentNullException(nameof(callback), "Callback may not be null");
             }
         }
     }

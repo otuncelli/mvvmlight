@@ -47,7 +47,7 @@ namespace GalaSoft.MvvmLight.Command
     ////  Description = "A command whose sole purpose is to relay its functionality to other objects by invoking delegates.",
     ////  UrlContacts = "http://www.galasoft.ch/contact_en.html",
     ////  Email = "laurent@galasoft.ch")]
-    public class RelayCommand : ICommand
+    public class RelayCommand : ICommandEx
     {
         private readonly WeakAction _execute;
 
@@ -85,7 +85,7 @@ namespace GalaSoft.MvvmLight.Command
         {
             if (execute == null)
             {
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
             }
 
             _execute = new WeakAction(execute, keepTargetAlive);

@@ -55,6 +55,21 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GalaSoft.MvvmLight %28PCL%29\Command\ICommandEx.cs">
+      <Link>Command\ICommandEx.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight %28PCL%29\Command\IAsyncCommand.cs">
+      <Link>Command\IAsyncCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight %28PCL%29\Command\IAsyncCommandGeneric.cs">
+      <Link>Command\IAsyncCommandGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight %28PCL%29\Command\AsyncCommand.cs">
+      <Link>Command\AsyncCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight %28PCL%29\Command\AsyncCommandGeneric.cs">
+      <Link>Command\AsyncCommandGeneric.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight %28PCL%29\Command\RelayCommand.cs">
       <Link>Command\RelayCommand.cs</Link>
     </Compile>

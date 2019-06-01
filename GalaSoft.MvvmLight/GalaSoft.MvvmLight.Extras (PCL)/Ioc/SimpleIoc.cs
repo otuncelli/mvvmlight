@@ -339,7 +339,7 @@ namespace GalaSoft.MvvmLight.Ioc
         {
             if (factory == null)
             {
-                throw new ArgumentNullException("factory");
+                throw new ArgumentNullException(nameof(factory));
             }
 
             lock (_syncLock)
@@ -410,7 +410,7 @@ namespace GalaSoft.MvvmLight.Ioc
         
             if (factory == null)
             {
-                throw new ArgumentNullException("factory");
+                throw new ArgumentNullException(nameof(factory));
             }
             
             lock (_syncLock)
