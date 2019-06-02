@@ -10,6 +10,11 @@ namespace GalaSoft.MvvmLight.Command
     public interface IAsyncCommand<in T> : ICommandEx
     {
         /// <summary>
+        /// Whether the asynchronous command is currently executing.
+        /// </summary>
+        bool IsExecuting { get; }
+
+        /// <summary>
         /// Defines the method to be called asynchronously when the command is invoked. 
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data 

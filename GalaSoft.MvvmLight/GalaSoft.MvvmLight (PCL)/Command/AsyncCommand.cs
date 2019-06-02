@@ -30,6 +30,11 @@ namespace GalaSoft.MvvmLight.Command
         private readonly WeakFunc<bool> _canExecute;
 
         /// <summary>
+        /// Whether the asynchronous command is currently executing.
+        /// </summary>
+        public bool IsExecuting { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the AsyncCommand class that 
         /// can always execute.
         /// </summary>
@@ -211,16 +216,22 @@ namespace GalaSoft.MvvmLight.Command
         /// <summary>
         /// Defines the method to be called asynchronously when the command is invoked. 
         /// </summary>
-        public virtual Task ExecuteAsync()
+        public virtual async Task ExecuteAsync()
         {
             if (CanExecute()
                 && _execute != null
                 && (_execute.IsStatic || _execute.IsAlive))
             {
-                return _execute.Execute();
+                IsExecuting = true;
+                try
+                {
+                    await _execute.Execute();
+                }
+                finally
+                {
+                    IsExecuting = false;
+                }
             }
-
-            return Task.FromResult(0);
         }
     }
 }

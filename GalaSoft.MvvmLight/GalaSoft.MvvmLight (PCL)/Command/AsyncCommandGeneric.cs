@@ -31,6 +31,11 @@ namespace GalaSoft.MvvmLight.Command
         private readonly WeakFunc<T, bool> _canExecute;
 
         /// <summary>
+        /// Whether the asynchronous command is currently executing.
+        /// </summary>
+        public bool IsExecuting { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the AsyncCommand class that 
         /// can always execute.
         /// </summary>
@@ -240,7 +245,7 @@ namespace GalaSoft.MvvmLight.Command
         /// </summary>
         /// <param name="parameter">Data used by the command. If the command does not require data 
         /// to be passed, this object can be set to a null reference</param>
-        public virtual Task ExecuteAsync(object parameter)
+        public virtual async Task ExecuteAsync(object parameter)
         {
             var val = parameter;
 
@@ -259,30 +264,36 @@ namespace GalaSoft.MvvmLight.Command
                 && _execute != null
                 && (_execute.IsStatic || _execute.IsAlive))
             {
-                if (val == null)
+                IsExecuting = true;
+                try
                 {
+                    if (val == null)
+                    {
 #if NETFX_CORE
-                    if (typeof(T).GetTypeInfo().IsValueType)
+                        if (typeof(T).GetTypeInfo().IsValueType)
 #else
                     if (typeof(T).IsValueType)
 #endif
-                    {
-                        return _execute.Execute(default(T));
+                        {
+                            await _execute.Execute(default(T));
+                        }
+                        else
+                        {
+                            // ReSharper disable ExpressionIsAlwaysNull
+                            await _execute.Execute((T) val);
+                            // ReSharper restore ExpressionIsAlwaysNull
+                        }
                     }
                     else
                     {
-                        // ReSharper disable ExpressionIsAlwaysNull
-                        return _execute.Execute((T) val);
-                        // ReSharper restore ExpressionIsAlwaysNull
+                        await _execute.Execute((T) val);
                     }
                 }
-                else
+                finally
                 {
-                    return _execute.Execute((T) val);
+                    IsExecuting = false;
                 }
             }
-
-            return Task.FromResult(0);
         }
     }
 }
