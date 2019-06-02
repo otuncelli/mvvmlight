@@ -23,16 +23,33 @@ namespace GalaSoft.MvvmLight.Command
     /// GalaSoft.MvvmLight.CommandWpf namespace (instead of GalaSoft.MvvmLight.Command).
     /// This will enable (or restore) the CommandManager class which handles
     /// automatic enabling/disabling of controls based on the CanExecute delegate.</remarks>
-    public class AsyncCommand : IAsyncCommand
+    public class AsyncCommand : ObservableObject, IAsyncCommand
     {
         private readonly WeakFunc<Task> _execute;
 
         private readonly WeakFunc<bool> _canExecute;
 
+        private bool _isExecuting;
+
+        private readonly object _sync = new object();
+
         /// <summary>
         /// Whether the asynchronous command is currently executing.
         /// </summary>
-        public bool IsExecuting { get; private set; }
+        public bool IsExecuting
+        {
+            get => _isExecuting;
+            private set
+            {
+                lock (_sync)
+                {
+                    if (_isExecuting == value)
+                        return;
+                    _isExecuting = value;
+                    RaisePropertyChanged(() => IsExecuting);
+                }
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the AsyncCommand class that 
